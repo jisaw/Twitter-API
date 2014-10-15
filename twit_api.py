@@ -1,4 +1,5 @@
 import datetime
+import sys
 from twitter import TwitterStream, OAuth
 
 __author__ = 'jakesawyer'
@@ -10,13 +11,16 @@ CONSUMER_SECRET = 'E1DlM4wAsqbWSkJdPMQ4gkuGfkA4ioOiGVfLDXh8pIZb2te5wr'
 
 
 ts = TwitterStream(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
-openstream = ts.statuses.filter(track='iPhone 6')
+openstream = ts.statuses.filter(track='%s' % sys.argv[1])
 with open("twit_data.txt", "w") as f:
-  for item in openstream:
-    response = ('User: %s\nText: %s\nFavorited: %s\nRetweets: %s\nTime: %s' %(item['user']['screen_name'], item['text'], item['favorited'], item['retweeted'], item['created_at'])).encode('utf-8')
-    f.write(response)
-    print(response + '\n')
-  f.close()
+  num = 0
+  while num < sys.argv[2]:
+    for item in openstream:
+      response = ('User: %s\nText: %s\nFavorited: %s\nRetweets: %s\nTime: %s' %(item['user']['screen_name'], item['text'], item['favorited'], item['retweeted'], item['created_at'])).encode('utf-8')
+      #f.write(response)
+      print(response + '\n')
+      num += 1
+    f.close()
   #for i in item:
     #print(i)
   #print(" \n")
