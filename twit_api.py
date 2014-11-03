@@ -1,6 +1,8 @@
 import datetime
 import sys
 from twitter import TwitterStream, OAuth
+import xml.etree.cElementTree as ET 
+from xml.dom import minidom
 
 __author__ = 'jakesawyer'
 
@@ -9,18 +11,45 @@ OAUTH_SECRET = 'Xo9WgvMMu5DgvH62GjBCF7pgSh8qD7HRUoJICY65R7Ts4'
 CONSUMER_KEY = 'Ny9DPm7eXF8R4Fk7djJdf8iUT'
 CONSUMER_SECRET = 'E1DlM4wAsqbWSkJdPMQ4gkuGfkA4ioOiGVfLDXh8pIZb2te5wr'
 
+def main():
+  get_twit_data(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 
-ts = TwitterStream(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
-openstream = ts.statuses.filter(track='%s' % sys.argv[1])
-with open("twit_data.txt", "w") as f:
-  num = 0
-  while num < sys.argv[2]:
+def get_twit_data(search_term, num_results = 0, format = 'xml', file_name):
+  ts = TwitterStream(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
+  openstream = ts.statuses.filter(track='%s' % search_term)
+   num = 0
+   while num < num_results:
     for item in openstream:
-      response = ('User: %s\nText: %s\nFavorited: %s\nRetweets: %s\nTime: %s' %(item['user']['screen_name'], item['text'], item['favorited'], item['retweeted'], item['created_at'])).encode('utf-8')
-      #f.write(response)
-      print(response + '\n')
-      num += 1
-    f.close()
+       response = ('User: %s\nText: %s\nFavorited: %s\nRetweets: %s\nTime: %s' %(item['user']['screen_name'], item['text'], item['favorited'], item['retweeted'], item['created_at'])).encode('utf-8')
+       #f.write(response)
+       print(response + '\n')
+       write_xml(item['user']['screen_name'], item['text'], item['favorited'], item['retweeted'], item['created_at'], file_name)
+       num += 1
+      
+
+def write_xml(scren_name, text, favorited, retweets, created, file_name):
+  root = ET.Element('root')
+
+  s_name = ET.SubElement(root, 'screen_name')
+  s_name.text = screen_name
+
+  txt = ET.SubElement(root, 'text')
+  txt.text = text
+
+  fav = ET.SubElement(root, 'favorited')
+  fav.text = favorited
+
+  retwts = ET.SubElement(root, 'retweets')
+  retwts.text = retweets
+
+  crtd = ET.SubElement(root, 'created')
+  crtd.text = created
+
+  with f = open(file_name + '.xml', 'a'):
+    tree = ET.ElementTree(root)
+    tree.write(f)
+
+
   #for i in item:
     #print(i)
   #print(" \n")
