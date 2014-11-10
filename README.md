@@ -14,7 +14,8 @@ Command line args should look like:<br><code> [python twit_rest.py '"This is exa
 </ul>
 <h3>Features To be Added</h3>
 <ul>
-<li></li>
-<li></li>
+<li>Command line arg to choose xml or json return types</li>
+<li>Command line arg to name output file</li>
+<li>Writing results to output file</li>
 </ul>
 
