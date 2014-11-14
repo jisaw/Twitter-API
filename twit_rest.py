@@ -1,6 +1,7 @@
 import sys
 import tweepy
 import logging as log
+import urllib2
 
 OAUTH_TOKEN = '17796749-MPGh0m8blE7YJGcmZNG6iRgioyHOeQdzE0L8yaNIq'
 OAUTH_SECRET = 'Xo9WgvMMu5DgvH62GjBCF7pgSh8qD7HRUoJICY65R7Ts4'
@@ -25,7 +26,8 @@ def main():
     auth.set_access_token(OAUTH_TOKEN, OAUTH_SECRET)
     try:
         api = tweepy.API(auth)
-        query = q
+        query = urllib2.quote(q.encode('utf8'))
+        print('Query: ' + query)
         max_tweets = num
         for tweet in tweepy.Cursor(api.search, q=query).items(max_tweets):
             print "Author: %s\nDate: %s\nText: %s\n\n" % (tweet.author.screen_name, tweet.created_at, tweet.text)
