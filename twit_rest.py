@@ -35,7 +35,11 @@ def main():
             #print tweet.created_at, tweet.text
     except:
         log.warning('Cought Exception')
-    write_xml(to_write, q.replace(" ", "_"))
+    filename = q.replace(" ", "_")
+    filename = filename.replace("(", "")
+    filename = filename.replace(")", "")
+    filename = filename.replace(":", "")
+    write_xml(to_write, filename)
 
 def write_xml(data, file_name):
     #TO-DO: write the data to an xml tree and save in a file
