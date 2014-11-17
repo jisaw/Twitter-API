@@ -16,8 +16,8 @@ def main():
     """
     to_write = []
     param = ' '.join(sys.argv[1:])
-    q = param[:param.find('?')]
-    num = int(param[param.find('?')+1:])
+    q = param[:param.find('%')]
+    num = int(param[param.find('%')+1:])
     print param
     print q
     print num

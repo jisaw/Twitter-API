@@ -13,8 +13,8 @@ CONSUMER_KEY = 'Ny9DPm7eXF8R4Fk7djJdf8iUT'
 CONSUMER_SECRET = 'E1DlM4wAsqbWSkJdPMQ4gkuGfkA4ioOiGVfLDXh8pIZb2te5wr'
 
 param = ' '.join(sys.argv[1:])
-q = param[:param.find('?')]
-num = int(param[param.find('?')+1:])
+q = param[:param.find('%')]
+num = int(param[param.find('%')+1:])
 
 
 class StdOutListener(tweepy.StreamListener):
