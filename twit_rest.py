@@ -2,6 +2,7 @@ import sys
 import tweepy
 import logging as log
 import urllib2
+import xml.etree.cElementTree as ET
 
 OAUTH_TOKEN = '17796749-MPGh0m8blE7YJGcmZNG6iRgioyHOeQdzE0L8yaNIq'
 OAUTH_SECRET = 'Xo9WgvMMu5DgvH62GjBCF7pgSh8qD7HRUoJICY65R7Ts4'
@@ -30,15 +31,31 @@ def main():
         max_tweets = num
         for tweet in tweepy.Cursor(api.search, q=query).items(max_tweets):
             print "Author: %s\nDate: %s\nText: %s\n\n" % (tweet.author.screen_name, tweet.created_at, tweet.text)
-            to_write.append([tweet.author.screen_name, tweet.created_at, tweet.text])
+            to_write.append([tweet.author.screen_name, tweet.created_at,tweet.text])
             #print tweet.created_at, tweet.text
     except:
         log.warning('Cought Exception')
-    write_xml(to_write)
+    write_xml(to_write, q.replace(" ", "_"))
 
-def write_xml(data):
+def write_xml(data, file_name):
     #TO-DO: write the data to an xml tree and save in a file
     print('Working on it')
+    thread = ET.Element('response')
+    for tweet in data:
+        author = ET.SubElement(thread, "author")
+        author.text = str(tweet[0])
+
+        date = ET.SubElement(thread, "date")
+        date.text = str(tweet[1])
+
+        text = ET.SubElement(thread, "text")
+        text.text = tweet[2]
+    f = open("data/" + file_name + ".xml", 'a')
+    with f:
+        tree = ET.ElementTree(thread)
+        tree.write(f)
+    f.close()
+
 
 
 if __name__ == "__main__":
