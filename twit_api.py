@@ -14,10 +14,10 @@ CONSUMER_SECRET = 'E1DlM4wAsqbWSkJdPMQ4gkuGfkA4ioOiGVfLDXh8pIZb2te5wr'
 
 def main():
     ts = TwitterStream(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
-    get_twit_data(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    get_twit_data(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], ts)
 
 
-def get_twit_data(search_term, num_results=0, format='xml', file_name = 'TwitAPIOut'):
+def get_twit_data(search_term, num_results=0, format='xml', file_name = 'TwitAPIOut', ts=None):
     openstream = ts.statuses.filter(track='%s' % search_term)
     root = ET.Element('root')
     num = 0
