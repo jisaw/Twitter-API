@@ -56,10 +56,6 @@ def parse_args():
 
 
 def logic(results):
-    """
-    Query should look like [python twit_rest.py '"This is exact search" this is not'? 10] the ? ending the query and the following number being the limit.
-    :return:
-    """
     query = results.query
     limit = results.limit
     file_name = results.fileName
