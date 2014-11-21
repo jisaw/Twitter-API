@@ -28,8 +28,7 @@ class StdOutListener(tweepy.StreamListener):
         decoded = json.loads(data)
 
         # Also, we convert UTF-8 to ASCII ignoring all bad characters sent by users
-        print '@%s: %s' % (decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
-        self.write_list.append([decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore')])
+        self.write_list.append(data)
         self.num_tweets += 1
         if self.num_tweets < int(num):
             print ''
