@@ -4,10 +4,10 @@ import urllib2
 import dicttoxml
 import json
 
-OAUTH_TOKEN = '17796749-MPGh0m8blE7YJGcmZNG6iRgioyHOeQdzE0L8yaNIq'
-OAUTH_SECRET = 'Xo9WgvMMu5DgvH62GjBCF7pgSh8qD7HRUoJICY65R7Ts4'
-CONSUMER_KEY = 'Ny9DPm7eXF8R4Fk7djJdf8iUT'
-CONSUMER_SECRET = 'E1DlM4wAsqbWSkJdPMQ4gkuGfkA4ioOiGVfLDXh8pIZb2te5wr'
+OAUTH_TOKEN = 'xxxxxx'
+OAUTH_SECRET = 'xxxxxx'
+CONSUMER_KEY = 'xxxxxx'
+CONSUMER_SECRET = 'xxxxxx'
 
 
 class StdOutListener(tweepy.StreamListener):
