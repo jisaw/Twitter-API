@@ -12,20 +12,12 @@ CONSUMER_SECRET = 'xxxxxx'
 
 class StdOutListener(tweepy.StreamListener):
     def __init__(self,limit, api=None):
-        """
-
-        :param api:
-        :param limit:
-        """
         super(StdOutListener, self).__init__()
         self.num_tweets = 0
         self.write_list = []
         self.limit = limit
 
     def on_data(self, data):
-        # Twitter returns data in JSON format - we need to decode it first
-
-        # Also, we convert UTF-8 to ASCII ignoring all bad characters sent by users
         decoded = json.loads(data)
         self.write_list.append(decoded)
         self.num_tweets += 1
